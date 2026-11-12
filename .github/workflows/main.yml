@@ -22,12 +22,13 @@ jobs:
           java-version: '11'
 
       - name: Install SDK packages
+        env:
+          SKIP_JDK_VERSION_CHECK: "true"
         run: |
           SDKMANAGER=$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager
           if [ ! -x "$SDKMANAGER" ]; then
             SDKMANAGER=$(find $ANDROID_HOME -name sdkmanager -type f | head -n 1)
           fi
-          echo "Using: $SDKMANAGER"
           yes | "$SDKMANAGER" --licenses > /dev/null || true
           "$SDKMANAGER" "platforms;android-30" "build-tools;30.0.3"
 
